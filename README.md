@@ -1,5 +1,14 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+This is meant to be a boilerplate to start from for new apps using the following:
+* nextjs with serverless api routes
+* [magic link](https://magic.link) for passwordless authentication
+* hasura (postgres/graphql) for database
+
+The following are also recommended for easy deployment:
+* [vercel](https://vercel.com) for deployment and hosting of nextjs frontend and backend
+* heroku for hosting hasura/postgres graphql database
+
 ## Getting Started
 
 First, run the development server:
