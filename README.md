@@ -4,10 +4,10 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This is meant to be a boilerplate to start from for new apps using the following:
+This is meant to be a boilerplate for new apps using the following:
 * [nextjs](https://nextjs.org/) with serverless api routes
-* [magic link](https://magic.link) for passwordless authentication
 * [hasura](https://hasura.io/) (postgres/graphql) for database
+* [magic link](https://magic.link) for passwordless authentication
 
 The following are also recommended for easy deployment:
 * [vercel](https://vercel.com) for deployment and hosting of nextjs frontend and backend
@@ -44,4 +44,4 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-> Poop icon made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](www.flaticon.com)
+> Dinorsaur and poops icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](www.flaticon.com)
