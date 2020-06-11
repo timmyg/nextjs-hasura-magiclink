@@ -1,4 +1,4 @@
-<img src="https://ibb.co/tYKPg3m" style="height:100px;">
+<img src="https://i.ibb.co/P1jzKtm/poo.png" style="height:100px;">
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
