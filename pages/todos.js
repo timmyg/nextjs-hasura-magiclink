@@ -7,6 +7,23 @@ export default function BankStatement() {
   );
   const [statement, setStatement] = useState(null);
 
+  async function clickHandler () {
+    const res = await fetch("https://todo-timmyg.herokuapp.com/v1/graphql", {
+      "headers": {
+        "x-hasura-admin-secret": "Z6b;jJtuU82ZJWkv8ribLZLNj,"
+      },
+      "body": "{\"query\":\"query MyQuery {\\n  todos {\\n    id, title\\n  }\\n}\\n\",\"variables\":null,\"operationName\":\"MyQuery\"}",
+      "method": "POST",
+      // "mode": "cors"
+    });
+    res.json().then(res => console.log(res.data.todos))
+    // const res = await fetch('https://.../posts')
+    // Router.push({
+    //   pathname: '/about',
+    //   query: { name: 'Zeit' }
+    // });
+  };
+
   useEffect(() => {
     if (auth.loggedIn) {
       auth
@@ -27,8 +44,13 @@ export default function BankStatement() {
   }
 
   return (
-    <div>
-      Hello "{statement.email}", your balance is: {statement.balance} USD.
-    </div>
+    <>
+      <div>
+        Hello "{statement.email}", your balance is: {statement.balance} USD.
+      </div>
+        <button onClick={clickHandler}>
+          Get todos
+        </button>
+    </>
   );
 }

@@ -1,3 +1,5 @@
+<img src="https://image.flaticon.com/icons/svg/3004/3004425.svg" style="height:100px;">
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 This is meant to be a boilerplate to start from for new apps using the following:
@@ -8,6 +10,8 @@ This is meant to be a boilerplate to start from for new apps using the following
 The following are also recommended for easy deployment:
 * [vercel](https://vercel.com) for deployment and hosting of nextjs frontend and backend
 * [heroku 1-click install](https://hasura.io/) for hosting hasura/postgres graphql database
+
+We will be creating an app that lets you log when your baby poops, eats, pees, sleeps, etc.
 
 ## Getting Started
 
@@ -38,3 +42,4 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+> Poop icon made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](www.flaticon.com)
