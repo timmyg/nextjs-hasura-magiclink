@@ -9,6 +9,8 @@ The following are also recommended for easy deployment:
 * [vercel](https://vercel.com) for deployment and hosting of nextjs frontend and backend
 * [heroku 1-click install](https://hasura.io/) for hosting hasura/postgres graphql database
 
+The demo app being built is poopasaurus - a way to log a baby's poops, pees, feedings, naps, etc.
+
 ## Getting Started
 
 First, run the development server:
