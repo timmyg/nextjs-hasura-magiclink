@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { addActivity } from '../state/actions'
+import { addActivity, setText} from '../state/actions'
 
 const InputForm = () => {
   const count = useSelector((state) => state.counter)
@@ -7,9 +7,10 @@ const InputForm = () => {
 
   const handleClick = (e) =>  {
     dispatch(addActivity("test3"))
+    
   }
   const handleChange = (e) =>  {
-    console.log(e.currentTarget.value);
+    dispatch(setText(e.currentTarget.value))
   }
 
   return (
@@ -17,7 +18,7 @@ const InputForm = () => {
       <input type="text" onChange={ handleChange } />
       <input
         type="button"
-        value="Alert the text input"
+        value="Submit"
         onClick={handleClick}
       />
     </>

@@ -1,12 +1,9 @@
 import * as types from './types'
 
-export const startClock = () => (dispatch) =>
-  setInterval(() => {
-    dispatch({ type: types.TICK, payload: { light: true, ts: Date.now() } })
-  }, 1000)
-
-export const incrementCount = () => ({ type: types.INCREMENT })
-export const decrementCount = () => ({ type: types.DECREMENT })
-export const resetCount = () => ({ type: types.RESET })
-export const addActivity  = () => (dispatch) =>
+export const setText  = (text) => (dispatch) => {
+  console.log(text);
+  dispatch({ type: types.SET_TEXT, payload: { text } })
+}
+export const addActivity  = (x) => (dispatch) => {
     dispatch({ type: types.ADD_ACTIVITY, payload: { text: "text321" } })
+}
