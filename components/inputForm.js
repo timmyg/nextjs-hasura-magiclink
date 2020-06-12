@@ -1,5 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { addActivity, setText} from '../state/actions'
+import { useDispatch } from 'react-redux'
+import { addActivity} from '../state/actions'
 import { Card, Col, Input, Row } from 'antd';
 const { Search } = Input;
 
@@ -10,10 +10,12 @@ const InputForm = () => {
   const form = { } 
 
   const handleSubmit = () =>  {
-    dispatch(addActivity(form))
+    console.log(form);
+    dispatch(addActivity(form.activity))
   }
+
   const handleChange = (e) =>  {
-    form[e.target.name] = e.currentTarget.value
+    form[e.target.name] = e.target.value
   }
 
   return (
