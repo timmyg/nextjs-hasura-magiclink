@@ -2,15 +2,14 @@ import { combineReducers } from 'redux'
 import * as types from './types'
 
 const initialFormState = {
-  text: null,
+  // text: null,
 }
 
 const formReducer = (state = initialFormState, { type, payload }) => {
   switch (type) {
-    // case types.ADD_ACTIVITY:
-    case types.SET_TEXT:
+    case types.ADD_ACTIVITY:
         return {
-          text: payload.text
+          activity: payload.activity
         }
     default:
       return state

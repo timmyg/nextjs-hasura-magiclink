@@ -1,26 +1,39 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { addActivity, setText} from '../state/actions'
+import { Card, Col, Input, Row } from 'antd';
+const { Search } = Input;
+
 
 const InputForm = () => {
-  const count = useSelector((state) => state.counter)
   const dispatch = useDispatch()
 
-  const handleClick = (e) =>  {
-    dispatch(addActivity("test3"))
-    
+  const form = { } 
+
+  const handleSubmit = () =>  {
+    dispatch(addActivity(form))
   }
   const handleChange = (e) =>  {
-    dispatch(setText(e.currentTarget.value))
+    form[e.target.name] = e.currentTarget.value
   }
 
   return (
     <>
-      <input type="text" onChange={ handleChange } />
-      <input
-        type="button"
-        value="Submit"
-        onClick={handleClick}
-      />
+      <div className="site-card-wrapper">
+        <Row gutter={16}>
+          <Col span={8}>
+            <Card title="Add activity">
+              <Search
+                placeholder="poop"
+                onChange={ handleChange }
+                onSearch={ handleSubmit }
+                style={{ width: 200 }}
+                name="activity"
+                enterButton="Submit"
+              />
+            </Card>
+          </Col>
+        </Row>
+      </div>
     </>
   )
 }
