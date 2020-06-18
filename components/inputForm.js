@@ -1,41 +1,73 @@
-import { useDispatch } from 'react-redux'
-import { addActivity} from '../state/actions'
-import { Card, Col, Input, Row } from 'antd';
-const { Search } = Input;
-
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { addActivity, getActivities, setActivitiesFilter } from '../state/actions'
+import { Button, TextInput, Table } from 'evergreen-ui'
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 const InputForm = () => {
   const dispatch = useDispatch()
+  const activities = useSelector(({activityForm}) => {
+    return activityForm.activities
+  })
+  const loading = useSelector(({activityForm}) => {
+    return activityForm.loading
+  })
+  useEffect(() => {
+    dispatch(getActivities())
+  }, [dispatch])
 
-  const form = { } 
-
-  const handleSubmit = () =>  {
-    console.log(form);
-    dispatch(addActivity(form.activity))
+  const handleSubmit = (event) =>  {
+    event.preventDefault();
+    const activity = document.getElementById('activity').value;
+    const babyId = 1;
+    dispatch(addActivity(activity, babyId))
+    document.getElementById('activity').value = ''
   }
 
-  const handleChange = (e) =>  {
-    form[e.target.name] = e.target.value
+  const handleSearch = (searchText) => {
+    dispatch(setActivitiesFilter(searchText))
   }
 
   return (
     <>
-      <div className="site-card-wrapper">
-        <Row gutter={16}>
-          <Col span={8}>
-            <Card title="Add activity">
-              <Search
-                placeholder="poop"
-                onChange={ handleChange }
-                onSearch={ handleSubmit }
-                style={{ width: 200 }}
-                name="activity"
-                enterButton="Submit"
-              />
-            </Card>
-          </Col>
-        </Row>
-      </div>
+      <form onSubmit={ handleSubmit } margin={16}>
+        <TextInput
+          name="activity"
+          id="activity"
+          placeholder="Add Activity"
+          disabled={loading} 
+        />
+        <Button type="submit" value="Add" appearance="primary"  disabled={loading} marginLeft={8}>
+          Add
+        </Button>
+      </form>
+      <br/>
+      <Table>
+        <Table.Head>
+          <Table.SearchHeaderCell 
+            onChange={ handleSearch }
+            placeholder='Search activity...'
+          />
+          <Table.TextHeaderCell>
+            Last Activity
+          </Table.TextHeaderCell>
+        </Table.Head>
+        <Table.VirtualBody height={240}>
+          {activities.map(activity => (
+            <Table.Row key={activity.id} isSelectable onSelect={() => alert(activity.type)}>
+              <Table.TextCell>{activity.type}</Table.TextCell>
+              <Table.TextCell>
+                <Moment format="M/D h:mma" utc local>
+                  {activity.start_at}
+                </Moment>
+              </Table.TextCell>
+            </Table.Row>
+          ))}
+        </Table.VirtualBody>
+      </Table>
+
+
     </>
   )
 }
