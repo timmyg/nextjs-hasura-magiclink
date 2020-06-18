@@ -1,9 +1,14 @@
 import { combineReducers } from 'redux'
 import * as types from './types'
+import InputForm from '../components/inputForm'
 
 const initialAppState = {
   selectedIndex: 0,
-  tabs: ['Activity', 'Event History', 'Identities']
+  tabs: [
+    {name: 'Add Activity', renderComponent() { return  <InputForm/> } },
+    {name: 'View Activity', renderComponent() {} },
+    {name: 'Trends', disabled: true, renderComponent() {} }
+  ]
 }
 
 
@@ -32,6 +37,7 @@ const formReducer = (state = initialFormState, { type, payload }) => {
   switch (type) {
 
     case types.ADD_ACTIVITY_STARTED:
+    case types.DELETE_ACTIVITY_STARTED:
     case types.GET_ACTIVITIES_STARTED:
       return {
         ...state,
@@ -51,6 +57,15 @@ const formReducer = (state = initialFormState, { type, payload }) => {
         error: null,
         allActivities: allActivitiesSorted,
         activities
+      }
+    case types.DELETE_ACTIVITY_SUCCESS: 
+      console.log({payload});
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        allActivities: state.allActivities.filter(a => a.id !== payload.id),
+        activities: state.activities.filter(a => a.id !== payload.id)
       }
     case types.GET_ACTIVITIES_SUCCESS:
       const allActivitiesSorted2 = payload.sort((a, b) => b.start_at - a.start_at)
@@ -72,6 +87,7 @@ const formReducer = (state = initialFormState, { type, payload }) => {
       }
 
     case types.ADD_ACTIVITY_FAILURE:
+    case types.DELETE_ACTIVITY_FAILURE:
     case types.GET_ACTIVITIES_FAILURE:
       return {
         ...state,

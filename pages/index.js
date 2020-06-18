@@ -1,24 +1,11 @@
-import { useEffect, useReducer } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Header from '../components/header'
 import { Pane, Tab, Tablist } from "evergreen-ui"
-import InputForm from '../components/inputForm'
 import { setTab } from '../state/actions'
 
-// export function getStaticProps() {
-//   return { 
-//     props: { 
-//         initialState: { 
-//           selectedIndex: 0,
-//           tabs: ['Activity', 'Event History', 'Identities']
-//       } 
-//     } 
-//   }
-// }
-
-const Index = (props) => {
+const Index = () => {
   
-  console.log({props});
   const dispatch = useDispatch()
     useEffect(() => {
   }, [dispatch])
@@ -38,29 +25,30 @@ const Index = (props) => {
         <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
             {tabs.map((tab, index) => (
               <Tab
-                key={tab}
-                id={tab}
+                key={tab.name}
+                id={tab.name}
                 onSelect={() => dispatch(setTab(index)) }
                 isSelected={index === selectedIndex}
-                aria-controls={`panel-${tab}`}
+                aria-controls={`panel-${tab.name}`}
+                disabled={tab.disabled} 
               >
-                    {tab}
+                    {tab.name}
               </Tab>
             ))}
         </Tablist>
         <Pane padding={16} background="tint1" flex="1">
-        {tabs.map((tab, index) => (
+          {tabs.map((tab, index) => (
             <Pane
-            key={tab}
-            id={`panel-${tab}`}
-            role="tabpanel"
-            aria-labelledby={tab}
-            aria-hidden={index !== selectedIndex}
-            display={index === selectedIndex ? 'block' : 'none'}
-            >
-            hi {tab}
+              key={tab.name}
+              id={`panel-${tab.name}`}
+              role="tabpanel"
+              aria-labelledby={tab.name}
+              aria-hidden={index !== selectedIndex}
+              display={index === selectedIndex ? 'block' : 'none'}
+              >
+                { tab.renderComponent() }
             </Pane>
-        ))}
+          ))}
         </Pane>
       </Pane>
     </>

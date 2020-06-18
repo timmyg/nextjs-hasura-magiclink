@@ -33,6 +33,33 @@ export const addActivity  = (activityText, babyId) => {
   }
 }
 
+export const deleteActivity  = (activity) => {
+  console.log("detel", activity);
+  return dispatch => {
+    dispatch(deleteActivityStarted());
+    fetch('/api/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(
+        {
+          "query":"mutation { delete_activities_by_pk(id:" + activity.id + ") { id type } }"
+        }
+      ),
+    })
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+      if (json.data.errors) {
+        dispatch(deleteActivityFailure(json.data.errors));
+      } else {
+        dispatch(deleteActivitySuccess(json.data.delete_activities_by_pk));
+      }
+    })
+  }
+}
+
 export const getActivities  = () => {
   return dispatch => {
     dispatch(getActivitiesStarted());
@@ -69,6 +96,24 @@ const addActivitySuccess = activity => ({
 
 const addActivityFailure = error => ({
   type: types.ADD_ACTIVITY_FAILURE,
+  payload: {
+    error
+  }
+});
+
+const deleteActivityStarted = () => ({
+  type: types.DELETE_ACTIVITY_STARTED
+});
+
+const deleteActivitySuccess = activity => ({
+  type: types.DELETE_ACTIVITY_SUCCESS,
+  payload: {
+    ...activity
+  }
+});
+
+const deleteActivityFailure = error => ({
+  type: types.DELETE_ACTIVITY_FAILURE,
   payload: {
     error
   }

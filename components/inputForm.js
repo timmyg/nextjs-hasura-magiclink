@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { addActivity, getActivities, setActivitiesFilter } from '../state/actions'
-import { Button, TextInput, Table } from 'evergreen-ui'
+import { addActivity, deleteActivity, getActivities, setActivitiesFilter } from '../state/actions'
+import { Button, TextInput, Table, IconButton } from 'evergreen-ui'
 import Moment from 'react-moment';
 import 'moment-timezone';
 
@@ -29,6 +29,10 @@ const InputForm = () => {
     dispatch(setActivitiesFilter(searchText))
   }
 
+  const handleDelete = (activity) => {
+    dispatch(deleteActivity(activity))
+  }
+
   return (
     <>
       <form onSubmit={ handleSubmit } margin={16}>
@@ -52,15 +56,19 @@ const InputForm = () => {
           <Table.TextHeaderCell>
             Last Activity
           </Table.TextHeaderCell>
+          <Table.TextHeaderCell></Table.TextHeaderCell>
         </Table.Head>
         <Table.VirtualBody height={240}>
           {activities.map(activity => (
-            <Table.Row key={activity.id} isSelectable onSelect={() => alert(activity.type)}>
+            <Table.Row key={activity.id}>
               <Table.TextCell>{activity.type}</Table.TextCell>
               <Table.TextCell>
                 <Moment format="M/D h:mma" utc local>
                   {activity.start_at}
                 </Moment>
+              </Table.TextCell>
+              <Table.TextCell>
+                <IconButton icon="trash" intent="danger" onClick={() => { handleDelete(activity) } }/>
               </Table.TextCell>
             </Table.Row>
           ))}

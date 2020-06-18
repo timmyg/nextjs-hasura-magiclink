@@ -1,7 +1,7 @@
 const Header = () => {
   return (
     <>
-        <img width="460" src="./poopasaurus.png"></img>
+        <img width="260" src="./poopasaurus.png"></img>
     </>
   )
 }
