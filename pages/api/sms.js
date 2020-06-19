@@ -7,7 +7,7 @@ export default async (req, res) => {
     console.log(req.headers.host);
     twiml.message('The Robots are coming! Head for the hills!');
     const babyId = 1;
-    const baseUrl = req.headers.host;
+    const baseUrl = `https://${req.headers.host}`;
 
     fetch(`${baseUrl}/api/graphql`, {
         method: 'POST',
