@@ -15,6 +15,8 @@ The following are also recommended for easy deployment:
 
 The demo app being built is poopasaurus - a way to log a baby's poops, pees, feedings, naps, etc.
 
+To see the full poopasaurus app, go to [https://github.com/timmyg/poopasaurus](https://github.com/timmyg/poopasaurus)
+
 ## Getting Started
 
 First, run the development server:
@@ -25,7 +27,13 @@ npm run dev
 yarn dev
 ```
 
+Copy `.env.template` to `.env.local` and fill in environment variables. You will need to create a hasura graphql database. You can import the activities and babies schemas via `db/schema.graphql` with the graphqurl npm package. You will need to manually create a baby with id 1 via the hasura UI. Baby id 1 is currently hardcoded in the frontend.
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+<p align="center">
+    <img width="960" src="./public/screenshot.png">
+</p>
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
@@ -43,5 +51,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Notes
+- /login is not fully implemented but you can get started with it.
 
 > Dinorsaur and poops icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](www.flaticon.com)

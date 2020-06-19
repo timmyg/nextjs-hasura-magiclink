@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { addActivity, getActivities } from '../state/actions'
-import { Button, TextInput } from 'evergreen-ui'
+import { addActivity } from '../state/actions'
+import { Button, TextInput, Text, Heading, majorScale } from 'evergreen-ui'
 
 const InputForm = () => {
   const dispatch = useDispatch()
@@ -18,7 +17,7 @@ const InputForm = () => {
   }
 
   return (
-    <>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
       <form onSubmit={ handleSubmit }
           margin={16}
           textalign="center"
@@ -27,15 +26,22 @@ const InputForm = () => {
         <TextInput
           name="activity"
           id="activity"
-          placeholder="Add Activity"
+          placeholder='poop at 540pm'
           disabled={loading} 
           hint="This is a hint."
         />
         <Button type="submit" value="Add" appearance="primary"  disabled={loading} marginLeft={8}>
           Add
         </Button>
+        <Heading is="h3" marginTop={majorScale(2)}>Examples:</Heading>
+        <ul>
+          <li><Text>poop</Text></li>
+          <li><Text>poop at 923am</Text></li>
+          <li><Text>feed</Text></li>
+          <li><Text>feed at 110pm</Text></li>
+        </ul>
       </form>
-    </>
+    </div>
   )
 }
 

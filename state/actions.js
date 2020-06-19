@@ -21,7 +21,7 @@ export const addActivity  = (activityText, babyId) => {
           "query":"mutation insert_single_activity($object: activities_insert_input! ) {insert_activities_one(object: $object) { id type baby_id created_at updated_at start_at }}",
           "variables": {
             "object": {
-              type: activityText,
+              text: activityText,
               baby_id: babyId
             }
           },
@@ -30,10 +30,10 @@ export const addActivity  = (activityText, babyId) => {
     })
     .then((res) => res.json())
     .then((json) => {
-      if (json.errors) {
-        dispatch(addActivityFailure(json.errors));
-      } else {
+      if (json.data) {
         dispatch(addActivitySuccess(json.data.insert_activities_one));
+      } else {
+        dispatch(addActivityFailure(json.errors));
       }
     })
   }
@@ -55,10 +55,10 @@ export const deleteActivity  = (activity) => {
     })
     .then((res) => res.json())
     .then((json) => {
-      if (json.errors) {
-        dispatch(deleteActivityFailure(json.errors));
-      } else {
+      if (json.data) {
         dispatch(deleteActivitySuccess(json.data.delete_activities_by_pk));
+      } else {
+        dispatch(deleteActivityFailure(json.errors));        
       }
     })
   }
@@ -80,10 +80,10 @@ export const getActivities  = () => {
     })
     .then((res) => res.json())
     .then((json) => {
-      if (json.errors) {
-        dispatch(getActivitiesFailure(json.errors));
-      } else {
+      if (json.data) {
         dispatch(getActivitiesSuccess(json.data.activities));
+      } else {
+        dispatch(getActivitiesFailure(json.errors));
       }
     })
   }

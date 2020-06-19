@@ -1,0 +1,914 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+# columns and relationships of "activities"
+type activities {
+  baby_id: Int!
+  created_at: timestamp!
+  end_at: timestamp!
+  id: Int!
+  start_at: timestamp!
+  text: String
+  type: String!
+  updated_at: timestamp!
+}
+
+# aggregated selection of "activities"
+type activities_aggregate {
+  aggregate: activities_aggregate_fields
+  nodes: [activities!]!
+}
+
+# aggregate fields of "activities"
+type activities_aggregate_fields {
+  avg: activities_avg_fields
+  count(columns: [activities_select_column!], distinct: Boolean): Int
+  max: activities_max_fields
+  min: activities_min_fields
+  stddev: activities_stddev_fields
+  stddev_pop: activities_stddev_pop_fields
+  stddev_samp: activities_stddev_samp_fields
+  sum: activities_sum_fields
+  var_pop: activities_var_pop_fields
+  var_samp: activities_var_samp_fields
+  variance: activities_variance_fields
+}
+
+# order by aggregate values of table "activities"
+input activities_aggregate_order_by {
+  avg: activities_avg_order_by
+  count: order_by
+  max: activities_max_order_by
+  min: activities_min_order_by
+  stddev: activities_stddev_order_by
+  stddev_pop: activities_stddev_pop_order_by
+  stddev_samp: activities_stddev_samp_order_by
+  sum: activities_sum_order_by
+  var_pop: activities_var_pop_order_by
+  var_samp: activities_var_samp_order_by
+  variance: activities_variance_order_by
+}
+
+# input type for inserting array relation for remote table "activities"
+input activities_arr_rel_insert_input {
+  data: [activities_insert_input!]!
+  on_conflict: activities_on_conflict
+}
+
+# aggregate avg on columns
+type activities_avg_fields {
+  baby_id: Float
+  id: Float
+}
+
+# order by avg() on columns of table "activities"
+input activities_avg_order_by {
+  baby_id: order_by
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "activities". All fields are combined with a logical 'AND'.
+input activities_bool_exp {
+  _and: [activities_bool_exp]
+  _not: activities_bool_exp
+  _or: [activities_bool_exp]
+  baby_id: Int_comparison_exp
+  created_at: timestamp_comparison_exp
+  end_at: timestamp_comparison_exp
+  id: Int_comparison_exp
+  start_at: timestamp_comparison_exp
+  text: String_comparison_exp
+  type: String_comparison_exp
+  updated_at: timestamp_comparison_exp
+}
+
+# unique or primary key constraints on table "activities"
+enum activities_constraint {
+  # unique or primary key constraint
+  activities_pkey
+}
+
+# input type for incrementing integer column in table "activities"
+input activities_inc_input {
+  baby_id: Int
+  id: Int
+}
+
+# input type for inserting data into table "activities"
+input activities_insert_input {
+  baby_id: Int
+  created_at: timestamp
+  end_at: timestamp
+  id: Int
+  start_at: timestamp
+  text: String
+  type: String
+  updated_at: timestamp
+}
+
+# aggregate max on columns
+type activities_max_fields {
+  baby_id: Int
+  created_at: timestamp
+  end_at: timestamp
+  id: Int
+  start_at: timestamp
+  text: String
+  type: String
+  updated_at: timestamp
+}
+
+# order by max() on columns of table "activities"
+input activities_max_order_by {
+  baby_id: order_by
+  created_at: order_by
+  end_at: order_by
+  id: order_by
+  start_at: order_by
+  text: order_by
+  type: order_by
+  updated_at: order_by
+}
+
+# aggregate min on columns
+type activities_min_fields {
+  baby_id: Int
+  created_at: timestamp
+  end_at: timestamp
+  id: Int
+  start_at: timestamp
+  text: String
+  type: String
+  updated_at: timestamp
+}
+
+# order by min() on columns of table "activities"
+input activities_min_order_by {
+  baby_id: order_by
+  created_at: order_by
+  end_at: order_by
+  id: order_by
+  start_at: order_by
+  text: order_by
+  type: order_by
+  updated_at: order_by
+}
+
+# response of any mutation on the table "activities"
+type activities_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [activities!]!
+}
+
+# input type for inserting object relation for remote table "activities"
+input activities_obj_rel_insert_input {
+  data: activities_insert_input!
+  on_conflict: activities_on_conflict
+}
+
+# on conflict condition type for table "activities"
+input activities_on_conflict {
+  constraint: activities_constraint!
+  update_columns: [activities_update_column!]!
+  where: activities_bool_exp
+}
+
+# ordering options when selecting data from "activities"
+input activities_order_by {
+  baby_id: order_by
+  created_at: order_by
+  end_at: order_by
+  id: order_by
+  start_at: order_by
+  text: order_by
+  type: order_by
+  updated_at: order_by
+}
+
+# primary key columns input for table: "activities"
+input activities_pk_columns_input {
+  id: Int!
+}
+
+# select columns of table "activities"
+enum activities_select_column {
+  # column name
+  baby_id
+
+  # column name
+  created_at
+
+  # column name
+  end_at
+
+  # column name
+  id
+
+  # column name
+  start_at
+
+  # column name
+  text
+
+  # column name
+  type
+
+  # column name
+  updated_at
+}
+
+# input type for updating data in table "activities"
+input activities_set_input {
+  baby_id: Int
+  created_at: timestamp
+  end_at: timestamp
+  id: Int
+  start_at: timestamp
+  text: String
+  type: String
+  updated_at: timestamp
+}
+
+# aggregate stddev on columns
+type activities_stddev_fields {
+  baby_id: Float
+  id: Float
+}
+
+# order by stddev() on columns of table "activities"
+input activities_stddev_order_by {
+  baby_id: order_by
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type activities_stddev_pop_fields {
+  baby_id: Float
+  id: Float
+}
+
+# order by stddev_pop() on columns of table "activities"
+input activities_stddev_pop_order_by {
+  baby_id: order_by
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type activities_stddev_samp_fields {
+  baby_id: Float
+  id: Float
+}
+
+# order by stddev_samp() on columns of table "activities"
+input activities_stddev_samp_order_by {
+  baby_id: order_by
+  id: order_by
+}
+
+# aggregate sum on columns
+type activities_sum_fields {
+  baby_id: Int
+  id: Int
+}
+
+# order by sum() on columns of table "activities"
+input activities_sum_order_by {
+  baby_id: order_by
+  id: order_by
+}
+
+# update columns of table "activities"
+enum activities_update_column {
+  # column name
+  baby_id
+
+  # column name
+  created_at
+
+  # column name
+  end_at
+
+  # column name
+  id
+
+  # column name
+  start_at
+
+  # column name
+  text
+
+  # column name
+  type
+
+  # column name
+  updated_at
+}
+
+# aggregate var_pop on columns
+type activities_var_pop_fields {
+  baby_id: Float
+  id: Float
+}
+
+# order by var_pop() on columns of table "activities"
+input activities_var_pop_order_by {
+  baby_id: order_by
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type activities_var_samp_fields {
+  baby_id: Float
+  id: Float
+}
+
+# order by var_samp() on columns of table "activities"
+input activities_var_samp_order_by {
+  baby_id: order_by
+  id: order_by
+}
+
+# aggregate variance on columns
+type activities_variance_fields {
+  baby_id: Float
+  id: Float
+}
+
+# order by variance() on columns of table "activities"
+input activities_variance_order_by {
+  baby_id: order_by
+  id: order_by
+}
+
+# columns and relationships of "babies"
+type babies {
+  id: Int!
+  name: String!
+}
+
+# aggregated selection of "babies"
+type babies_aggregate {
+  aggregate: babies_aggregate_fields
+  nodes: [babies!]!
+}
+
+# aggregate fields of "babies"
+type babies_aggregate_fields {
+  avg: babies_avg_fields
+  count(columns: [babies_select_column!], distinct: Boolean): Int
+  max: babies_max_fields
+  min: babies_min_fields
+  stddev: babies_stddev_fields
+  stddev_pop: babies_stddev_pop_fields
+  stddev_samp: babies_stddev_samp_fields
+  sum: babies_sum_fields
+  var_pop: babies_var_pop_fields
+  var_samp: babies_var_samp_fields
+  variance: babies_variance_fields
+}
+
+# order by aggregate values of table "babies"
+input babies_aggregate_order_by {
+  avg: babies_avg_order_by
+  count: order_by
+  max: babies_max_order_by
+  min: babies_min_order_by
+  stddev: babies_stddev_order_by
+  stddev_pop: babies_stddev_pop_order_by
+  stddev_samp: babies_stddev_samp_order_by
+  sum: babies_sum_order_by
+  var_pop: babies_var_pop_order_by
+  var_samp: babies_var_samp_order_by
+  variance: babies_variance_order_by
+}
+
+# input type for inserting array relation for remote table "babies"
+input babies_arr_rel_insert_input {
+  data: [babies_insert_input!]!
+  on_conflict: babies_on_conflict
+}
+
+# aggregate avg on columns
+type babies_avg_fields {
+  id: Float
+}
+
+# order by avg() on columns of table "babies"
+input babies_avg_order_by {
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "babies". All fields are combined with a logical 'AND'.
+input babies_bool_exp {
+  _and: [babies_bool_exp]
+  _not: babies_bool_exp
+  _or: [babies_bool_exp]
+  id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+# unique or primary key constraints on table "babies"
+enum babies_constraint {
+  # unique or primary key constraint
+  babies_pkey
+}
+
+# input type for incrementing integer column in table "babies"
+input babies_inc_input {
+  id: Int
+}
+
+# input type for inserting data into table "babies"
+input babies_insert_input {
+  id: Int
+  name: String
+}
+
+# aggregate max on columns
+type babies_max_fields {
+  id: Int
+  name: String
+}
+
+# order by max() on columns of table "babies"
+input babies_max_order_by {
+  id: order_by
+  name: order_by
+}
+
+# aggregate min on columns
+type babies_min_fields {
+  id: Int
+  name: String
+}
+
+# order by min() on columns of table "babies"
+input babies_min_order_by {
+  id: order_by
+  name: order_by
+}
+
+# response of any mutation on the table "babies"
+type babies_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [babies!]!
+}
+
+# input type for inserting object relation for remote table "babies"
+input babies_obj_rel_insert_input {
+  data: babies_insert_input!
+  on_conflict: babies_on_conflict
+}
+
+# on conflict condition type for table "babies"
+input babies_on_conflict {
+  constraint: babies_constraint!
+  update_columns: [babies_update_column!]!
+  where: babies_bool_exp
+}
+
+# ordering options when selecting data from "babies"
+input babies_order_by {
+  id: order_by
+  name: order_by
+}
+
+# primary key columns input for table: "babies"
+input babies_pk_columns_input {
+  id: Int!
+}
+
+# select columns of table "babies"
+enum babies_select_column {
+  # column name
+  id
+
+  # column name
+  name
+}
+
+# input type for updating data in table "babies"
+input babies_set_input {
+  id: Int
+  name: String
+}
+
+# aggregate stddev on columns
+type babies_stddev_fields {
+  id: Float
+}
+
+# order by stddev() on columns of table "babies"
+input babies_stddev_order_by {
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type babies_stddev_pop_fields {
+  id: Float
+}
+
+# order by stddev_pop() on columns of table "babies"
+input babies_stddev_pop_order_by {
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type babies_stddev_samp_fields {
+  id: Float
+}
+
+# order by stddev_samp() on columns of table "babies"
+input babies_stddev_samp_order_by {
+  id: order_by
+}
+
+# aggregate sum on columns
+type babies_sum_fields {
+  id: Int
+}
+
+# order by sum() on columns of table "babies"
+input babies_sum_order_by {
+  id: order_by
+}
+
+# update columns of table "babies"
+enum babies_update_column {
+  # column name
+  id
+
+  # column name
+  name
+}
+
+# aggregate var_pop on columns
+type babies_var_pop_fields {
+  id: Float
+}
+
+# order by var_pop() on columns of table "babies"
+input babies_var_pop_order_by {
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type babies_var_samp_fields {
+  id: Float
+}
+
+# order by var_samp() on columns of table "babies"
+input babies_var_samp_order_by {
+  id: order_by
+}
+
+# aggregate variance on columns
+type babies_variance_fields {
+  id: Float
+}
+
+# order by variance() on columns of table "babies"
+input babies_variance_order_by {
+  id: order_by
+}
+
+# expression to compare columns of type Int. All fields are combined with logical 'AND'.
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+# mutation root
+type mutation_root {
+  # delete data from the table: "activities"
+  delete_activities(
+    # filter the rows which have to be deleted
+    where: activities_bool_exp!
+  ): activities_mutation_response
+
+  # delete single row from the table: "activities"
+  delete_activities_by_pk(id: Int!): activities
+
+  # delete data from the table: "babies"
+  delete_babies(
+    # filter the rows which have to be deleted
+    where: babies_bool_exp!
+  ): babies_mutation_response
+
+  # delete single row from the table: "babies"
+  delete_babies_by_pk(id: Int!): babies
+
+  # insert data into the table: "activities"
+  insert_activities(
+    # the rows to be inserted
+    objects: [activities_insert_input!]!
+
+    # on conflict condition
+    on_conflict: activities_on_conflict
+  ): activities_mutation_response
+
+  # insert a single row into the table: "activities"
+  insert_activities_one(
+    # the row to be inserted
+    object: activities_insert_input!
+
+    # on conflict condition
+    on_conflict: activities_on_conflict
+  ): activities
+
+  # insert data into the table: "babies"
+  insert_babies(
+    # the rows to be inserted
+    objects: [babies_insert_input!]!
+
+    # on conflict condition
+    on_conflict: babies_on_conflict
+  ): babies_mutation_response
+
+  # insert a single row into the table: "babies"
+  insert_babies_one(
+    # the row to be inserted
+    object: babies_insert_input!
+
+    # on conflict condition
+    on_conflict: babies_on_conflict
+  ): babies
+
+  # update data of the table: "activities"
+  update_activities(
+    # increments the integer columns with given value of the filtered values
+    _inc: activities_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: activities_set_input
+
+    # filter the rows which have to be updated
+    where: activities_bool_exp!
+  ): activities_mutation_response
+
+  # update single row of the table: "activities"
+  update_activities_by_pk(
+    # increments the integer columns with given value of the filtered values
+    _inc: activities_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: activities_set_input
+    pk_columns: activities_pk_columns_input!
+  ): activities
+
+  # update data of the table: "babies"
+  update_babies(
+    # increments the integer columns with given value of the filtered values
+    _inc: babies_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: babies_set_input
+
+    # filter the rows which have to be updated
+    where: babies_bool_exp!
+  ): babies_mutation_response
+
+  # update single row of the table: "babies"
+  update_babies_by_pk(
+    # increments the integer columns with given value of the filtered values
+    _inc: babies_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: babies_set_input
+    pk_columns: babies_pk_columns_input!
+  ): babies
+}
+
+# column ordering options
+enum order_by {
+  # in the ascending order, nulls last
+  asc
+
+  # in the ascending order, nulls first
+  asc_nulls_first
+
+  # in the ascending order, nulls last
+  asc_nulls_last
+
+  # in the descending order, nulls first
+  desc
+
+  # in the descending order, nulls first
+  desc_nulls_first
+
+  # in the descending order, nulls last
+  desc_nulls_last
+}
+
+# query root
+type query_root {
+  # fetch data from the table: "activities"
+  activities(
+    # distinct select on columns
+    distinct_on: [activities_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [activities_order_by!]
+
+    # filter the rows returned
+    where: activities_bool_exp
+  ): [activities!]!
+
+  # fetch aggregated fields from the table: "activities"
+  activities_aggregate(
+    # distinct select on columns
+    distinct_on: [activities_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [activities_order_by!]
+
+    # filter the rows returned
+    where: activities_bool_exp
+  ): activities_aggregate!
+
+  # fetch data from the table: "activities" using primary key columns
+  activities_by_pk(id: Int!): activities
+
+  # fetch data from the table: "babies"
+  babies(
+    # distinct select on columns
+    distinct_on: [babies_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [babies_order_by!]
+
+    # filter the rows returned
+    where: babies_bool_exp
+  ): [babies!]!
+
+  # fetch aggregated fields from the table: "babies"
+  babies_aggregate(
+    # distinct select on columns
+    distinct_on: [babies_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [babies_order_by!]
+
+    # filter the rows returned
+    where: babies_bool_exp
+  ): babies_aggregate!
+
+  # fetch data from the table: "babies" using primary key columns
+  babies_by_pk(id: Int!): babies
+}
+
+# expression to compare columns of type String. All fields are combined with logical 'AND'.
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+# subscription root
+type subscription_root {
+  # fetch data from the table: "activities"
+  activities(
+    # distinct select on columns
+    distinct_on: [activities_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [activities_order_by!]
+
+    # filter the rows returned
+    where: activities_bool_exp
+  ): [activities!]!
+
+  # fetch aggregated fields from the table: "activities"
+  activities_aggregate(
+    # distinct select on columns
+    distinct_on: [activities_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [activities_order_by!]
+
+    # filter the rows returned
+    where: activities_bool_exp
+  ): activities_aggregate!
+
+  # fetch data from the table: "activities" using primary key columns
+  activities_by_pk(id: Int!): activities
+
+  # fetch data from the table: "babies"
+  babies(
+    # distinct select on columns
+    distinct_on: [babies_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [babies_order_by!]
+
+    # filter the rows returned
+    where: babies_bool_exp
+  ): [babies!]!
+
+  # fetch aggregated fields from the table: "babies"
+  babies_aggregate(
+    # distinct select on columns
+    distinct_on: [babies_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [babies_order_by!]
+
+    # filter the rows returned
+    where: babies_bool_exp
+  ): babies_aggregate!
+
+  # fetch data from the table: "babies" using primary key columns
+  babies_by_pk(id: Int!): babies
+}
+
+scalar timestamp
+
+# expression to compare columns of type timestamp. All fields are combined with logical 'AND'.
+input timestamp_comparison_exp {
+  _eq: timestamp
+  _gt: timestamp
+  _gte: timestamp
+  _in: [timestamp!]
+  _is_null: Boolean
+  _lt: timestamp
+  _lte: timestamp
+  _neq: timestamp
+  _nin: [timestamp!]
+}
+

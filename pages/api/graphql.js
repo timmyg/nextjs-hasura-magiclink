@@ -1,7 +1,22 @@
+import moment from 'moment'
+
 export default async (req, res) => {
   const { body } = req
-  console.log(body);
-  const gqlResponse = await fetch('https://poopasaurus-timmyg.herokuapp.com/v1/graphql', {
+  if (body.query.includes("insert_single_activity")) {
+    const text = body.variables.object.text;
+    const words = text.split(" ")
+    const activityText = words[0]
+    if (!["poop", "feed"].includes(activityText)) {
+      return res.status(400).json({errors: "Invalid input"})      
+    }
+    body.variables.object.type = activityText
+    if(words.includes("at")) {
+      const timeText = words[2]
+      body.variables.object.start_at = moment(timeText, "hmma").utc().format()
+    }
+  }
+  console.log(process.env.GRAPHQL_ENDPOINT);
+  const gqlResponse = await fetch(process.env.GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',

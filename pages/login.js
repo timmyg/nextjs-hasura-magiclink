@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <div className="container">
       <main>
-        <h1>Next.js Bank</h1>
+        <h1>Login</h1>
         <div className="content">{getContent()}</div>
       </main>
     </div>

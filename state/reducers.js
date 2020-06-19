@@ -7,8 +7,8 @@ import { toaster } from 'evergreen-ui'
 const initialAppState = {
   selectedIndex: 0,
   tabs: [
-    {name: 'Add Activity', renderComponent() { return  <InputForm/> } },
-    {name: 'View Activity', renderComponent() { return  <ActivitiesHistory/> } },
+    {name: 'Add', renderComponent() { return  <InputForm/> } },
+    {name: 'View', renderComponent() { return  <ActivitiesHistory/> } },
     {name: 'Trends', disabled: true, renderComponent() {} }
   ]
 }
@@ -97,7 +97,7 @@ const formReducer = (state = initialFormState, { type, payload }) => {
     case types.DELETE_ACTIVITY_FAILURE:
     case types.GET_ACTIVITIES_FAILURE:
       console.log(payload);
-      toaster.success(
+      toaster.danger(
         payload.error
       )
       return {

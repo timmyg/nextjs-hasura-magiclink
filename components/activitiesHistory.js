@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { deleteActivity, getActivities, setActivitiesFilter } from '../state/actions'
-import { Table, IconButton } from 'evergreen-ui'
+import { Table, IconButton, Text } from 'evergreen-ui'
 import Moment from 'react-moment';
 import 'moment-timezone';
 
@@ -24,15 +24,15 @@ const ActivitiesHistory = () => {
 
   if (!activities.length) {
     return (
-      <>
-        No activities added
-      </>
+      <div style={{textAlign: 'center'}}>
+        <Text>No activities added</Text>
+      </div>
     )
   }
 
   return (
-    <>
-      <Table>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+      <Table minWidth={600} maxWidth={800}>
         <Table.Head backgroundColor="white">
           <Table.SearchHeaderCell 
             onChange={ handleSearch }
@@ -53,15 +53,13 @@ const ActivitiesHistory = () => {
                 </Moment>
               </Table.TextCell>
               <Table.TextCell>
-                <IconButton icon="trash" intent="danger" onClick={() => { handleDelete(activity) } }/>
+                <IconButton appearance="minimal" icon="trash" intent="danger" onClick={() => { handleDelete(activity) } }/>
               </Table.TextCell>
             </Table.Row>
           ))}
         </Table>
       </Table>
-
-
-    </>
+    </div>
   )
 }
 
