@@ -56,3 +56,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - /login is not fully implemented but you can get started with it.
 
 > Dinorsaur and poops icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](www.flaticon.com)
+
