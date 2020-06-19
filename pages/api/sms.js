@@ -4,9 +4,10 @@ export default async (req, res) => {
     const twiml = new MessagingResponse();
     console.log(`Incoming message from ${req.body.From}: ${req.body.Body}`);
     console.log({req});
+    console.log(req.headers.host);
     twiml.message('The Robots are coming! Head for the hills!');
     const babyId = 1;
-    const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
+    const baseUrl = req.headers.host;
 
     fetch(`${baseUrl}/api/graphql`, {
         method: 'POST',
