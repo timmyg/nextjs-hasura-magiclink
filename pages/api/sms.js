@@ -3,6 +3,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 export default async (req, res) => {
     const twiml = new MessagingResponse();
     console.log(`Incoming message from ${req.body.From}: ${req.body.Body}`);
+    console.log({req});
     twiml.message('The Robots are coming! Head for the hills!');
     const babyId = 1;
     const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
