@@ -1,21 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { addActivity, deleteActivity, getActivities, setActivitiesFilter } from '../state/actions'
-import { Button, TextInput, Table, IconButton } from 'evergreen-ui'
-import Moment from 'react-moment';
-import 'moment-timezone';
+import { addActivity, getActivities } from '../state/actions'
+import { Button, TextInput } from 'evergreen-ui'
 
 const InputForm = () => {
   const dispatch = useDispatch()
-  const activities = useSelector(({activityForm}) => {
-    return activityForm.activities
-  })
   const loading = useSelector(({activityForm}) => {
     return activityForm.loading
   })
-  useEffect(() => {
-    dispatch(getActivities())
-  }, [dispatch])
 
   const handleSubmit = (event) =>  {
     event.preventDefault();
@@ -25,57 +17,24 @@ const InputForm = () => {
     document.getElementById('activity').value = ''
   }
 
-  const handleSearch = (searchText) => {
-    dispatch(setActivitiesFilter(searchText))
-  }
-
-  const handleDelete = (activity) => {
-    dispatch(deleteActivity(activity))
-  }
-
   return (
     <>
-      <form onSubmit={ handleSubmit } margin={16}>
+      <form onSubmit={ handleSubmit }
+          margin={16}
+          textalign="center"
+          background="white"
+          >
         <TextInput
           name="activity"
           id="activity"
           placeholder="Add Activity"
           disabled={loading} 
+          hint="This is a hint."
         />
         <Button type="submit" value="Add" appearance="primary"  disabled={loading} marginLeft={8}>
           Add
         </Button>
       </form>
-      <br/>
-      <Table>
-        <Table.Head>
-          <Table.SearchHeaderCell 
-            onChange={ handleSearch }
-            placeholder='Search activity...'
-          />
-          <Table.TextHeaderCell>
-            Last Activity
-          </Table.TextHeaderCell>
-          <Table.TextHeaderCell></Table.TextHeaderCell>
-        </Table.Head>
-        <Table.VirtualBody height={240}>
-          {activities.map(activity => (
-            <Table.Row key={activity.id}>
-              <Table.TextCell>{activity.type}</Table.TextCell>
-              <Table.TextCell>
-                <Moment format="M/D h:mma" utc local>
-                  {activity.start_at}
-                </Moment>
-              </Table.TextCell>
-              <Table.TextCell>
-                <IconButton icon="trash" intent="danger" onClick={() => { handleDelete(activity) } }/>
-              </Table.TextCell>
-            </Table.Row>
-          ))}
-        </Table.VirtualBody>
-      </Table>
-
-
     </>
   )
 }

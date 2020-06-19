@@ -17,15 +17,21 @@ export const addActivity  = (activityText, babyId) => {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(
-        {"query":"mutation insert_single_activity { insert_activities_one( object: { type: \"" + activityText +"\", baby_id: " + babyId + "}) { id type baby_id created_at updated_at start_at}}",
-        "variables":null,
-        "operationName":"insert_single_activity"}
+        {
+          "query":"mutation insert_single_activity($object: activities_insert_input! ) {insert_activities_one(object: $object) { id type baby_id created_at updated_at start_at }}",
+          "variables": {
+            "object": {
+              type: activityText,
+              baby_id: babyId
+            }
+          },
+          "operationName":"insert_single_activity"}
       ),
     })
     .then((res) => res.json())
     .then((json) => {
-      if (json.data.errors) {
-        dispatch(addActivityFailure(json.data.errors));
+      if (json.errors) {
+        dispatch(addActivityFailure(json.errors));
       } else {
         dispatch(addActivitySuccess(json.data.insert_activities_one));
       }
@@ -34,7 +40,6 @@ export const addActivity  = (activityText, babyId) => {
 }
 
 export const deleteActivity  = (activity) => {
-  console.log("detel", activity);
   return dispatch => {
     dispatch(deleteActivityStarted());
     fetch('/api/graphql', {
@@ -50,9 +55,8 @@ export const deleteActivity  = (activity) => {
     })
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
-      if (json.data.errors) {
-        dispatch(deleteActivityFailure(json.data.errors));
+      if (json.errors) {
+        dispatch(deleteActivityFailure(json.errors));
       } else {
         dispatch(deleteActivitySuccess(json.data.delete_activities_by_pk));
       }
@@ -69,13 +73,15 @@ export const getActivities  = () => {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(
-        {"query":"query { activities(order_by: {start_at: desc}) { id type start_at } }" },
+        {
+          "query": "query { activities(order_by: {start_at: desc}) { id type start_at } }",
+        },
       ),
     })
     .then((res) => res.json())
     .then((json) => {
-      if (json.data.errors) {
-        dispatch(getActivitiesFailure(json.data.errors));
+      if (json.errors) {
+        dispatch(getActivitiesFailure(json.errors));
       } else {
         dispatch(getActivitiesSuccess(json.data.activities));
       }

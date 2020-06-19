@@ -22,7 +22,7 @@ const Index = () => {
     <>
       <Header />
       <Pane height={120}>
-        <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
+        <Tablist marginTop={8} marginBottom={16} flexBasis={240} marginRight={24}  textAlign="center">
             {tabs.map((tab, index) => (
               <Tab
                 key={tab.name}
@@ -36,7 +36,7 @@ const Index = () => {
               </Tab>
             ))}
         </Tablist>
-        <Pane padding={16} background="tint1" flex="1">
+        <Pane padding={16} flex="1">
           {tabs.map((tab, index) => (
             <Pane
               key={tab.name}

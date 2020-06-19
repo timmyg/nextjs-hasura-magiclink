@@ -1,8 +1,14 @@
+import { Pane } from "evergreen-ui"
+
 const Header = () => {
   return (
-    <>
-        <img width="260" src="./poopasaurus.png"></img>
-    </>
+    <Pane
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <img width="260" src="./poopasaurus.png"></img>
+    </Pane>        
   )
 }
 

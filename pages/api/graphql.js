@@ -1,5 +1,6 @@
 export default async (req, res) => {
   const { body } = req
+  console.log(body);
   const gqlResponse = await fetch('https://poopasaurus-timmyg.herokuapp.com/v1/graphql', {
     method: 'POST',
     headers: {
