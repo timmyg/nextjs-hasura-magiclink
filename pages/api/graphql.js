@@ -15,7 +15,6 @@ export default async (req, res) => {
       body.variables.object.start_at = moment(timeText, "hmma").utc().format()
     }
   }
-  console.log(process.env.GRAPHQL_ENDPOINT);
   const gqlResponse = await fetch(process.env.GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: {

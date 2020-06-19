@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Header from '../components/header'
 import { Pane, Tab, Tablist } from "evergreen-ui"
 import { setTab } from '../state/actions'
+import Head from 'next/head'
 
 const Index = () => {
   
@@ -20,6 +21,10 @@ const Index = () => {
 
   return (
     <>
+      <Head>
+        <title>My page title</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Header />
       <Pane height={120}>
         <Tablist marginTop={8} marginBottom={16} flexBasis={240} marginRight={24}  textAlign="center">

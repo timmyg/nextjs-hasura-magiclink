@@ -85,7 +85,6 @@ const formReducer = (state = initialFormState, { type, payload }) => {
           activity.type.toLowerCase().includes(state.activityFilter.toLowerCase())) : allActivitiesSorted2
       }
     case types.SET_ACTIVITIES_FILTER:
-      console.log(payload);
       return {
         ...state,
         activityFilter: payload,
@@ -96,7 +95,6 @@ const formReducer = (state = initialFormState, { type, payload }) => {
     case types.ADD_ACTIVITY_FAILURE:
     case types.DELETE_ACTIVITY_FAILURE:
     case types.GET_ACTIVITIES_FAILURE:
-      console.log(payload);
       toaster.danger(
         payload.error
       )
