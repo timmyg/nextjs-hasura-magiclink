@@ -2,7 +2,7 @@ import moment from 'moment'
 
 export default async (req, res) => {
   const { body } = req
-  console.log({body});
+  console.log(JSON.stringify(body));
   if (body.query.includes("insert_single_activity")) {
     const text = body.variables.object.text;
     const words = text.split(" ")
