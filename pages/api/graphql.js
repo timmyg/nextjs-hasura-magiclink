@@ -7,7 +7,7 @@ export default async (req, res) => {
     const text = body.variables.object.text;
     const words = text.split(" ")
     const activityText = words[0]
-    if (!["poop", "feed"].includes(activityText)) {
+    if (!["poop", "feed"].includes(activityText.toLowerCase())) {
       return res.status(400).json({errors: "Invalid input"})      
     }
     body.variables.object.type = activityText
