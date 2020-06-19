@@ -6,7 +6,7 @@ export default async (req, res) => {
     const babyId = 1;
     const baseUrl = `https://${req.headers.host}`;
 
-    fetch(`${baseUrl}/api/graphql`, {
+    await fetch(`${baseUrl}/api/graphql`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
