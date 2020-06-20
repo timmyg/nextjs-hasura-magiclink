@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { addActivity } from '../state/actions'
-import { Button, TextInput, Text, Heading, majorScale } from 'evergreen-ui'
+import { Button, TextInput, Text, Heading, majorScale, setClassNamePrefix } from 'evergreen-ui'
+setClassNamePrefix("ub-");
 
 const InputForm = () => {
   const dispatch = useDispatch()
