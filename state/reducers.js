@@ -1,11 +1,10 @@
-import { combineReducers } from 'redux'
 import * as types from './types'
+import { combineReducers } from 'redux'
 import { toaster } from 'evergreen-ui'
 
 const initialAppState = {
   selectedIndex: 0,
 }
-
 
 const initialFormState = {
   loading: false,

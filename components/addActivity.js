@@ -1,9 +1,9 @@
 import { Button, TextInput, Text, Heading, majorScale } from 'evergreen-ui'
 import { useState } from 'react'
 
-const AddForm = ({onActivitySubmit, loading, inputValue}) => {
+const AddForm = ({onActivitySubmit, loading}) => {
   const [form, setForm] = useState({
-    val: inputValue
+    val: ""
   })
 
   const handleChange = (e) => {

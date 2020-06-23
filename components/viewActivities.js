@@ -1,32 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { deleteActivity, getActivities, setActivitiesFilter } from '../state/actions'
-import { Table, IconButton, Text } from 'evergreen-ui'
+import { Table, IconButton, Text, majorScale, Pane, Spinner } from 'evergreen-ui'
 import Moment from 'react-moment';
 import 'moment-timezone';
 
-const ViewActivities = () => {
-  const dispatch = useDispatch()
-  const activities = useSelector(({activityForm}) => {
-    return activityForm.activities
-  })
-  useEffect(() => {
-    dispatch(getActivities())
-  }, [dispatch])
+const ViewActivities = ({onHandleSearch, onHandleDelete, activities, loading}) => {
+  const hasActivities = !!activities.length
 
-  const handleSearch = (searchText) => {
-    dispatch(setActivitiesFilter(searchText))
-  }
-
-  const handleDelete = (activity) => {
-    dispatch(deleteActivity(activity))
-  }
-
-  if (!activities.length) {
+  if (loading) {
     return (
-      <div style={{textAlign: 'center'}}>
-        <Text>No activities added</Text>
-      </div>
+      <Pane display="flex" alignItems="center" justifyContent="center" height={400}>
+        <Spinner />
+      </Pane>
     )
   }
 
@@ -35,7 +18,7 @@ const ViewActivities = () => {
       <Table minWidth={600} maxWidth={800}>
         <Table.Head backgroundColor="white">
           <Table.SearchHeaderCell 
-            onChange={ handleSearch }
+            onChange={ onHandleSearch }
             placeholder='Search activity...'
           />
           <Table.TextHeaderCell>
@@ -44,19 +27,25 @@ const ViewActivities = () => {
           <Table.TextHeaderCell></Table.TextHeaderCell>
         </Table.Head>
         <Table>
-          {activities.map(activity => (
-            <Table.Row key={activity.id}>
-              <Table.TextCell>{activity.type}</Table.TextCell>
-              <Table.TextCell>
-                <Moment format="M/D h:mma" utc local>
-                  {activity.start_at}
-                </Moment>
-              </Table.TextCell>
-              <Table.TextCell>
-                <IconButton appearance="minimal" icon="trash" intent="danger" onClick={() => { handleDelete(activity) } }/>
-              </Table.TextCell>
-            </Table.Row>
-          ))}
+          {hasActivities ? (
+            activities.map(activity => (
+              <Table.Row key={activity.id}>
+                <Table.TextCell>{activity.type}</Table.TextCell>
+                <Table.TextCell>
+                  <Moment format="M/D h:mma" utc local>
+                    {activity.start_at}
+                  </Moment>
+                </Table.TextCell>
+                <Table.TextCell>
+                  <IconButton appearance="minimal" icon="trash" intent="danger" onClick={() => { onHandleDelete(activity) } }/>
+                </Table.TextCell>
+              </Table.Row>
+            ))
+          ) : (
+            <div style={{textAlign: 'center', marginTop: majorScale(1) }}>
+              <Text>No activities</Text>
+            </div>
+          )}
         </Table>
       </Table>
     </div>

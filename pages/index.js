@@ -2,18 +2,22 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Header from '../components/header'
 import { Pane, Tab, Tablist, setClassNamePrefix } from "evergreen-ui"
-import { setTab } from '../state/actions'
+import { addActivity, getActivities, setTab, setActivitiesFilter, deleteActivity } from '../state/actions'
 import Head from 'next/head'
 import AddActivity from '../components/addActivity'
 import ViewActivities from '../components/viewActivities'
-import { addActivity } from '../state/actions'
 setClassNamePrefix("ub-");
 
 const Index = () => {
   
   const dispatch = useDispatch()
     useEffect(() => {
+      dispatch(getActivities())
   }, [dispatch])
+
+  const activities = useSelector(({activityForm}) => {
+    return activityForm.activities
+  })
 
   const selectedIndex = useSelector(({app}) => {
     return app.selectedIndex
@@ -23,14 +27,20 @@ const Index = () => {
     return activityForm.loading
   })
 
-  let inputValue = "";
-
   const onActivitySubmit = (event) =>  {
     event.preventDefault();
     const activity = document.getElementById('activity').value;
     const babyId = 1;
     dispatch(addActivity(activity, babyId))
     document.getElementById('activity').value = ''
+  }
+
+  const onHandleSearch = (searchText) => {
+    dispatch(setActivitiesFilter(searchText))
+  }
+
+  const onHandleDelete = (activity) => {
+    dispatch(deleteActivity(activity))
   }
 
   return (
@@ -82,7 +92,7 @@ const Index = () => {
             aria-hidden={0 !== selectedIndex}
             display={0 === selectedIndex ? 'block' : 'none'}
             >
-              <AddActivity loading={loading} onActivitySubmit={onActivitySubmit} inputValue={inputValue}/>
+              <AddActivity loading={loading} onActivitySubmit={onActivitySubmit}/>
           </Pane>
           <Pane
             key={"View"}
@@ -92,7 +102,7 @@ const Index = () => {
             aria-hidden={1 !== selectedIndex}
             display={1 === selectedIndex ? 'block' : 'none'}
             >
-              <ViewActivities />
+              <ViewActivities loading={loading} activities={activities} onHandleSearch={onHandleSearch} onHandleDelete={onHandleDelete}/>
           </Pane>
           <Pane
             key={"Trends"}
