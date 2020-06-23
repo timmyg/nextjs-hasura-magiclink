@@ -24,7 +24,8 @@ export const addActivity  = (activityFullText, babyId) => {
     dispatch(addActivityStarted());
     const words = activityFullText.split(" ")
     const activityText = words[0]
-    if (!["poop", "feed"].includes(activityText.toLowerCase())) {
+    console.log({activityText});
+    if (!["poop", "feed", "nap"].includes(activityText.toLowerCase())) {
       return dispatch(addActivityFailure("Invalid input"));
     }
     const activity = {

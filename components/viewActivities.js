@@ -19,6 +19,8 @@ const ViewActivities = ({onHandleSearch, onHandleDelete, activities, loading}) =
         return '💩';
       case 'feed':
         return '🥛';
+      case 'nap':
+        return '😴';
       default:
         return '👶';
     }
