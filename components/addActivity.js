@@ -13,12 +13,10 @@ const AddForm = ({onActivitySubmit, loading}) => {
   }
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center'}}>
+    <div>
       <form onSubmit={ onActivitySubmit }
-          margin={16}
-          textalign="center"
-          background="white"
-          >
+          style={{display: 'flex', justifyContent: 'center'}}
+        >
         <TextInput
           name="activity"
           id="activity"
@@ -27,17 +25,19 @@ const AddForm = ({onActivitySubmit, loading}) => {
           defaultValue={ form.val }
           onChange={ handleChange }
         />
-        <Button type="submit" value="Add" appearance="primary"  disabled={loading} marginLeft={8}>
+        <Button type="submit" value="Add" appearance="primary"  disabled={loading} marginLeft={majorScale(1)}>
           Add
         </Button>
-        <Heading is="h3" marginTop={majorScale(2)}>Examples:</Heading>
+      </form>
+      <div style={{width: 'fit-content', margin: '0 auto'}}>
+        <Heading is="h3" marginTop={majorScale(2)} textAlign={"center"}>Examples</Heading>
         <ul>
           <li><Text>poop</Text></li>
           <li><Text>poop at 923am</Text></li>
           <li><Text>feed</Text></li>
           <li><Text>feed at 110pm</Text></li>
         </ul>
-      </form>
+      </div>
     </div>
   )
 }

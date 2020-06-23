@@ -1,4 +1,4 @@
-import { Pane } from "evergreen-ui"
+import { Pane, majorScale } from "evergreen-ui"
 import Link from 'next/link'
 
 const Header = () => {
@@ -7,6 +7,7 @@ const Header = () => {
       display="flex"
       alignItems="center"
       justifyContent="center"
+      marginBottom={majorScale(2)}
     >
       <Link href="/">
         <a>
