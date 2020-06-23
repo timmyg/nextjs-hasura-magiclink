@@ -4,12 +4,13 @@ export default async (req, res) => {
     const twiml = new MessagingResponse();
     twiml.message('The Robots are coming! Head for the hills!');
     const babyId = 1;
-    const baseUrl = `https://${req.headers.host}`;
+    // const baseUrl = `https://${req.headers.host}`;
 
-    await fetch(`${baseUrl}/api/graphql`, {
+    await fetch(process.env.NEXT_PUBLIC__GRAPHQL_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
+          "x-hasura-admin-secret": process.env.NEXT_PUBLIC__HASURA_GRAPHQL_ADMIN_SECRET
         },
         body: JSON.stringify(
           {
