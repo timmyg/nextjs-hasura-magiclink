@@ -1,25 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { addActivity } from '../state/actions'
-import { Button, TextInput, Text, Heading, majorScale, setClassNamePrefix } from 'evergreen-ui'
-setClassNamePrefix("ub-");
+import { Button, TextInput, Text, Heading, majorScale } from 'evergreen-ui'
+import { useState } from 'react'
 
-const InputForm = () => {
-  const dispatch = useDispatch()
-  const loading = useSelector(({activityForm}) => {
-    return activityForm.loading
+const InputForm = ({onActivitySubmit, loading, inputValue}) => {
+  const [form, setForm] = useState({
+    val: inputValue
   })
 
-  const handleSubmit = (event) =>  {
-    event.preventDefault();
-    const activity = document.getElementById('activity').value;
-    const babyId = 1;
-    dispatch(addActivity(activity, babyId))
-    document.getElementById('activity').value = ''
+  const handleChange = (e) => {
+    setForm({
+      [e.target.name]: e.target.value,
+    })
   }
 
   return (
     <div style={{display: 'flex', justifyContent: 'center'}}>
-      <form onSubmit={ handleSubmit }
+      <form onSubmit={ onActivitySubmit }
           margin={16}
           textalign="center"
           background="white"
@@ -29,7 +24,8 @@ const InputForm = () => {
           id="activity"
           placeholder='poop at 540pm'
           disabled={loading} 
-          hint="This is a hint."
+          defaultValue={ form.val }
+          onChange={ handleChange }
         />
         <Button type="submit" value="Add" appearance="primary"  disabled={loading} marginLeft={8}>
           Add

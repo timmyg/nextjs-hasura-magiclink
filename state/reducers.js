@@ -1,16 +1,9 @@
 import { combineReducers } from 'redux'
 import * as types from './types'
-import InputForm from '../components/inputForm'
-import ActivitiesHistory from '../components/activitiesHistory'
 import { toaster } from 'evergreen-ui'
 
 const initialAppState = {
   selectedIndex: 0,
-  tabs: [
-    {name: 'Add', renderComponent() { return  <InputForm/> } },
-    {name: 'View', renderComponent() { return  <ActivitiesHistory/> } },
-    {name: 'Trends', disabled: true, renderComponent() {} }
-  ]
 }
 
 
@@ -95,6 +88,7 @@ const formReducer = (state = initialFormState, { type, payload }) => {
     case types.ADD_ACTIVITY_FAILURE:
     case types.DELETE_ACTIVITY_FAILURE:
     case types.GET_ACTIVITIES_FAILURE:
+      console.log(payload);
       toaster.danger(
         payload.error
       )

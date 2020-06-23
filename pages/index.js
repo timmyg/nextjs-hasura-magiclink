@@ -1,9 +1,13 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Header from '../components/header'
-import { Pane, Tab, Tablist } from "evergreen-ui"
+import { Pane, Tab, Tablist, setClassNamePrefix } from "evergreen-ui"
 import { setTab } from '../state/actions'
 import Head from 'next/head'
+import InputForm from '../components/inputForm'
+import ActivitiesHistory from '../components/activitiesHistory'
+import { addActivity } from '../state/actions'
+setClassNamePrefix("ub-");
 
 const Index = () => {
   
@@ -15,9 +19,19 @@ const Index = () => {
     return app.selectedIndex
   })
 
-  const tabs = useSelector(({app}) => {
-    return app.tabs
+  const loading = useSelector(({activityForm}) => {
+    return activityForm.loading
   })
+
+  let inputValue = "";
+
+  const onActivitySubmit = (event) =>  {
+    event.preventDefault();
+    const activity = document.getElementById('activity').value;
+    const babyId = 1;
+    dispatch(addActivity(activity, babyId))
+    document.getElementById('activity').value = ''
+  }
 
   return (
     <>
@@ -28,32 +42,68 @@ const Index = () => {
       <Header />
       <Pane height={120}>
         <Tablist marginTop={8} marginBottom={16} flexBasis={240} marginRight={24}  textAlign="center">
-            {tabs.map((tab, index) => (
-              <Tab
-                key={tab.name}
-                id={tab.name}
-                onSelect={() => dispatch(setTab(index)) }
-                isSelected={index === selectedIndex}
-                aria-controls={`panel-${tab.name}`}
-                disabled={tab.disabled} 
-              >
-                    {tab.name}
-              </Tab>
-            ))}
+          <Tab
+            key={"Add"}
+            id={"Add"}
+            onSelect={() => dispatch(setTab(0)) }
+            isSelected={0 === selectedIndex}
+            aria-controls={`panel-${"Add"}`}
+            disabled={false} 
+          >
+                {"Add"}
+          </Tab>
+          <Tab
+            key={"View"}
+            id={"View"}
+            onSelect={() => dispatch(setTab(1)) }
+            isSelected={1 === selectedIndex}
+            aria-controls={`panel-${"View"}`}
+            disabled={false} 
+          >
+                {"View"}
+          </Tab>
+          <Tab
+            key={"Trends"}
+            id={"Trends"}
+            onSelect={() => dispatch(setTab(2)) }
+            isSelected={2 === selectedIndex}
+            aria-controls={`panel-${"Trends"}`}
+            disabled={true} 
+          >
+                {"Trends"}
+          </Tab>
         </Tablist>
         <Pane padding={16} flex="1">
-          {tabs.map((tab, index) => (
-            <Pane
-              key={tab.name}
-              id={`panel-${tab.name}`}
-              role="tabpanel"
-              aria-labelledby={tab.name}
-              aria-hidden={index !== selectedIndex}
-              display={index === selectedIndex ? 'block' : 'none'}
-              >
-                { tab.renderComponent() }
-            </Pane>
-          ))}
+          <Pane
+            key={"Add"}
+            id={`panel-${"Add"}`}
+            role="tabpanel"
+            aria-labelledby={"Add"}
+            aria-hidden={0 !== selectedIndex}
+            display={0 === selectedIndex ? 'block' : 'none'}
+            >
+              <InputForm loading={loading} onActivitySubmit={onActivitySubmit} inputValue={inputValue}/>
+          </Pane>
+          <Pane
+            key={"View"}
+            id={`panel-${"View"}`}
+            role="tabpanel"
+            aria-labelledby={"View"}
+            aria-hidden={1 !== selectedIndex}
+            display={1 === selectedIndex ? 'block' : 'none'}
+            >
+              <ActivitiesHistory />
+          </Pane>
+          <Pane
+            key={"Trends"}
+            id={`panel-${"Trends"}`}
+            role="tabpanel"
+            aria-labelledby={"Trends"}
+            aria-hidden={2 !== selectedIndex}
+            display={2 === selectedIndex ? 'block' : 'none'}
+            >
+
+          </Pane>
         </Pane>
       </Pane>
     </>
