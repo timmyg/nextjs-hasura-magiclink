@@ -1,4 +1,5 @@
 import { Pane } from "evergreen-ui"
+import Link from 'next/link'
 
 const Header = () => {
   return (
@@ -7,7 +8,11 @@ const Header = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <img width="260" src="./poopasaurus.png"></img>
+      <Link href="/">
+        <a>
+          <img width="260" src="./poopasaurus.png"></img>
+        </a>
+      </Link>
     </Pane>        
   )
 }
