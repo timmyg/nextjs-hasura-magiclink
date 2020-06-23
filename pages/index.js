@@ -4,8 +4,8 @@ import Header from '../components/header'
 import { Pane, Tab, Tablist, setClassNamePrefix } from "evergreen-ui"
 import { setTab } from '../state/actions'
 import Head from 'next/head'
-import InputForm from '../components/inputForm'
-import ActivitiesHistory from '../components/activitiesHistory'
+import AddActivity from '../components/addActivity'
+import ViewActivities from '../components/viewActivities'
 import { addActivity } from '../state/actions'
 setClassNamePrefix("ub-");
 
@@ -82,7 +82,7 @@ const Index = () => {
             aria-hidden={0 !== selectedIndex}
             display={0 === selectedIndex ? 'block' : 'none'}
             >
-              <InputForm loading={loading} onActivitySubmit={onActivitySubmit} inputValue={inputValue}/>
+              <AddActivity loading={loading} onActivitySubmit={onActivitySubmit} inputValue={inputValue}/>
           </Pane>
           <Pane
             key={"View"}
@@ -92,7 +92,7 @@ const Index = () => {
             aria-hidden={1 !== selectedIndex}
             display={1 === selectedIndex ? 'block' : 'none'}
             >
-              <ActivitiesHistory />
+              <ViewActivities />
           </Pane>
           <Pane
             key={"Trends"}

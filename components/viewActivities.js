@@ -5,7 +5,7 @@ import { Table, IconButton, Text } from 'evergreen-ui'
 import Moment from 'react-moment';
 import 'moment-timezone';
 
-const ActivitiesHistory = () => {
+const ViewActivities = () => {
   const dispatch = useDispatch()
   const activities = useSelector(({activityForm}) => {
     return activityForm.activities
@@ -63,4 +63,4 @@ const ActivitiesHistory = () => {
   )
 }
 
-export default ActivitiesHistory
+export default ViewActivities
