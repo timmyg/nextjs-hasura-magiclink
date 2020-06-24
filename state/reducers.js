@@ -38,23 +38,23 @@ const formReducer = (state = initialFormState, { type, payload }) => {
         loading: true
       }
 
-    case types.ADD_ACTIVITY_SUCCESS: 
-      const allActivities = [...state.allActivities.slice(), payload]
-      const allActivitiesSorted = allActivities.sort((a, b) => {
-        return b.start_at.localeCompare(a.start_at)
-      })
-      const activities = state.activityFilter ? state.allActivities.filter(activity =>
-        activity.type.toLowerCase().includes(state.activityFilter.toLowerCase())) : allActivities
-      toaster.success(
-          'Activity added'
-        )
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        allActivities: allActivitiesSorted,
-        activities
-      }
+    // case types.ADD_ACTIVITY_SUCCESS: 
+    //   const allActivities = [...state.allActivities.slice(), payload]
+    //   const allActivitiesSorted = allActivities.sort((a, b) => {
+    //     return b.start_at.localeCompare(a.start_at)
+    //   })
+    //   const activities = state.activityFilter ? state.allActivities.filter(activity =>
+    //     activity.type.toLowerCase().includes(state.activityFilter.toLowerCase())) : allActivities
+    //   toaster.success(
+    //       'Activity added'
+    //     )
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     error: null,
+    //     allActivities: allActivitiesSorted,
+    //     activities
+    //   }
     case types.DELETE_ACTIVITY_SUCCESS: 
       toaster.success(
         'Activity deleted'
@@ -67,7 +67,9 @@ const formReducer = (state = initialFormState, { type, payload }) => {
         activities: state.activities.filter(a => a.id !== payload.id)
       }
     case types.GET_ACTIVITIES_SUCCESS:
-      const allActivitiesSorted2 = payload.sort((a, b) => b.start_at - a.start_at)
+      console.log({payload});
+      const allActivitiesSorted2 = payload.sort((a, b) => b.start_at.localeCompare(a.start_at))
+      console.log({allActivitiesSorted2});
       return {
         ...state,
         loading: false,

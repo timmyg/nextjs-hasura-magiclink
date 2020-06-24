@@ -8,7 +8,7 @@ export default async (req, res) => {
     console.log(process.env.GRAPHQL_ENDPOINT, process.env.HASURA_GRAPHQL_ADMIN_SECRET);
     console.log(req.body.Body, babyId);
 
-    const reponse = await fetch(process.env.GRAPHQL_ENDPOINT, {
+    const response = await fetch(process.env.GRAPHQL_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
