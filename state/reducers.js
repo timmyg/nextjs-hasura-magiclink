@@ -67,9 +67,7 @@ const formReducer = (state = initialFormState, { type, payload }) => {
         activities: state.activities.filter(a => a.id !== payload.id)
       }
     case types.GET_ACTIVITIES_SUCCESS:
-      console.log({payload});
       const allActivitiesSorted2 = payload.sort((a, b) => b.start_at.localeCompare(a.start_at))
-      console.log({allActivitiesSorted2});
       return {
         ...state,
         loading: false,
@@ -89,7 +87,6 @@ const formReducer = (state = initialFormState, { type, payload }) => {
     case types.ADD_ACTIVITY_FAILURE:
     case types.DELETE_ACTIVITY_FAILURE:
     case types.GET_ACTIVITIES_FAILURE:
-      console.log(payload);
       toaster.danger(
         payload.error
       )

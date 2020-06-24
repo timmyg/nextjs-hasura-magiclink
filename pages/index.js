@@ -68,7 +68,7 @@ const Index = () => {
     const { data, loading } = useSubscription(
       newActivitiesSubscription,
     );
-    console.log(data);
+    console.log({data, loading});
     if (data) {
       dispatch(getActivitiesSuccess(data.activities))
     }
