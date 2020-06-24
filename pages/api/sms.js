@@ -5,6 +5,8 @@ export default async (req, res) => {
     twiml.message('The Robots are coming! Head for the hills!');
     const babyId = 1;
     // const baseUrl = `https://${req.headers.host}`;
+    console.log(process.env.GRAPHQL_ENDPOINT, process.env.HASURA_GRAPHQL_ADMIN_SECRET);
+    console.log(req.body.Body, babyId);
 
     await fetch(process.env.GRAPHQL_ENDPOINT, {
         method: 'POST',
