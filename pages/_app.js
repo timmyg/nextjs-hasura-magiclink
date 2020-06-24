@@ -108,17 +108,26 @@ import { HttpLink } from 'apollo-boost';
 //     }
 // });
 
+console.log("process.env.NEXT_PUBLIC__HASURA_GRAPHQL_ADMIN_SECRET", process.env.NEXT_PUBLIC__HASURA_GRAPHQL_ADMIN_SECRET);
 const wsLink = process.browser ? new WebSocketLink({ // if you instantiate in the server, the error will be thrown
   uri: process.env.NEXT_PUBLIC__GRAPHQL_ENDPOINT_WS,
   options: {
-    reconnect: true
-  }
+    reconnect: true,
+    connectionParams: {
+      headers: {
+        "x-hasura-admin-secret": process.env.NEXT_PUBLIC__HASURA_GRAPHQL_ADMIN_SECRET,
+        Authorization: "Bearer xxxxx"
+      }
+    },
+  },
 }) : null;
 
 const httplink = new HttpLink({
 	uri: process.env.NEXT_PUBLIC__GRAPHQL_ENDPOINT,
 	// credentials: 'same-origin'
 });
+
+console.log({wsLink});
 
 const link = process.browser ? split( //only create the split in the browser
   // split based on operation type
