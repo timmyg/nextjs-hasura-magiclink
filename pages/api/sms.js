@@ -8,7 +8,7 @@ export default async (req, res) => {
     console.log(process.env.GRAPHQL_ENDPOINT, process.env.HASURA_GRAPHQL_ADMIN_SECRET);
     console.log(req.body.Body, babyId);
 
-    const response = await fetch(process.env.GRAPHQL_ENDPOINT, {
+    const gqlResponse = await fetch(process.env.GRAPHQL_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -26,7 +26,8 @@ export default async (req, res) => {
             "operationName":"insert_single_activity"}
         ),
       })
-    console.log({response});
+    const data = await gqlResponse.json()
+    console.log({data});
 
     return res.status(200).json({message: "ok"})
 }
