@@ -7,8 +7,7 @@ export default async (req, res) => {
 
     const activityFullText = req.body.Body.trim();
     const words = activityFullText.split(" ")
-    const activityText = words[0]
-    console.log({activityText});
+    const activityText = words[0].toLowerCase()
     if (!["poop", "feed", "nap"].includes(activityText.toLowerCase())) {
       return res.status(400).json({message: "invalid text"})
     }
