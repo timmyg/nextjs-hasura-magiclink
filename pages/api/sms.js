@@ -6,11 +6,11 @@ export default async (req, res) => {
     const babyId = 1;
     // const baseUrl = `https://${req.headers.host}`;
 
-    await fetch(process.env.NEXT_PUBLIC__GRAPHQL_ENDPOINT, {
+    await fetch(process.env.GRAPHQL_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
-          "x-hasura-admin-secret": process.env.NEXT_PUBLIC__HASURA_GRAPHQL_ADMIN_SECRET
+          "x-hasura-admin-secret": process.env.HASURA_GRAPHQL_ADMIN_SECRET
         },
         body: JSON.stringify(
           {

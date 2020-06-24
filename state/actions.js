@@ -105,6 +105,9 @@ export const getActivities  = () => {
     })
   }
 }
+
+export const setActivities  = (activities) => {
+}
  
 const addActivityStarted = () => ({
   type: types.ADD_ACTIVITY_STARTED
@@ -146,7 +149,7 @@ const getActivitiesStarted = () => ({
   type: types.GET_ACTIVITIES_STARTED,
 });
 
-const getActivitiesSuccess = activities => ({
+export const getActivitiesSuccess = activities => ({
   type: types.GET_ACTIVITIES_SUCCESS,
   payload: activities
 });

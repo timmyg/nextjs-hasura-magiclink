@@ -2,19 +2,21 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Header from '../components/header'
 import { Pane, Tab, Tablist, setClassNamePrefix, majorScale, Button } from "evergreen-ui"
-import { addActivity, getActivities, setTab, setActivitiesFilter, deleteActivity } from '../state/actions'
+import { addActivity, getActivitiesSuccess, setTab, setActivitiesFilter, deleteActivity } from '../state/actions'
 import Head from 'next/head'
 import AddActivity from '../components/addActivity'
 import ViewActivities from '../components/viewActivities'
 import Link from 'next/link'
 import useMagicLink from 'use-magic-link'
+import gql from 'graphql-tag'
+import { useSubscription } from '@apollo/react-hooks';
 setClassNamePrefix("ub-");
 
 const Index = () => {
   
   const dispatch = useDispatch()
     useEffect(() => {
-      dispatch(getActivities())
+      // dispatch(getActivities())
   }, [dispatch])
 
   const activities = useSelector(({activityForm}) => {
@@ -47,6 +49,32 @@ const Index = () => {
   }
 
   const auth = useMagicLink(process.env.NEXT_PUBLIC__MAGIC_LINK_PUBLISHABLE_KEY);
+
+  // todo move to actions?
+  function subscribe() { 
+    const newActivitiesSubscription = gql`
+      subscription newActivities {
+        activities {
+          id
+          type
+          start_at
+          end_at
+          baby_id
+          text
+        }
+      }
+    `;
+  
+    const { data, loading } = useSubscription(
+      newActivitiesSubscription,
+    );
+    console.log(data);
+    if (data) {
+      dispatch(getActivitiesSuccess(data.activities))
+    }
+  };
+
+  subscribe()
 
   return (
     <>

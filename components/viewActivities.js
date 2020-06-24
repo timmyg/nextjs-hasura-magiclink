@@ -11,7 +11,7 @@ import 'moment-timezone';
 // }
 
 const ViewActivities = ({onHandleSearch, onHandleDelete, activities, loading}) => {
-  const hasActivities = !!activities.length
+  const hasActivities = !!activities?.length
 
   function renderActivityTypeIcon(type) {
     switch(type) {
