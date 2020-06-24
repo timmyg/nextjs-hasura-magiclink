@@ -5,7 +5,7 @@ export default async (req, res) => {
     twiml.message('The Robots are coming! Head for the hills!');
     const babyId = 1;
 
-    await fetch(process.env.GRAPHQL_ENDPOINT, {
+    const gqlResponse = await fetch(process.env.GRAPHQL_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -23,6 +23,8 @@ export default async (req, res) => {
             "operationName":"insert_single_activity"}
         ),
       })
+    const gqlResponseData = await gqlResponse.json()
+    console.log("gqlResponse", gqlResponseData)
 
     return res.status(200).json({message: "ok"})
 }
