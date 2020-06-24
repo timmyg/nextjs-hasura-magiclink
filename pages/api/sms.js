@@ -5,6 +5,14 @@ export default async (req, res) => {
     twiml.message('The Robots are coming! Head for the hills!');
     const babyId = 1;
 
+    const activityFullText = req.body.Body.trim();
+    const words = activityFullText.split(" ")
+    const activityText = words[0]
+    console.log({activityText});
+    if (!["poop", "feed", "nap"].includes(activityText.toLowerCase())) {
+      return res.status(400).json({message: "invalid text"})
+    }
+
     const gqlResponse = await fetch(process.env.GRAPHQL_ENDPOINT, {
         method: 'POST',
         headers: {
@@ -16,7 +24,8 @@ export default async (req, res) => {
             "query":"mutation insert_single_activity($object: activities_insert_input! ) {insert_activities_one(object: $object) { id type baby_id created_at updated_at start_at }}",
             "variables": {
               "object": {
-                text: req.body.Body,
+                text: activityFullText,
+                type: activityText,
                 baby_id: babyId
               }
             },
