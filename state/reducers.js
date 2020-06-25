@@ -46,9 +46,11 @@ const formReducer = (state = initialFormState, { type, payload }) => {
       })
       const activities = state.activityFilter ? state.allActivities.filter(activity =>
         activity.type.toLowerCase().includes(state.activityFilter.toLowerCase())) : allActivities
-      toaster.success(
-          'Activity added'
-        )
+      let toasterText = 'Activity added'
+      if (payload.source === "sms") {
+        toasterText += " via sms"
+      }
+      toaster.success(toasterText)
       return {
         ...state,
         loading: false,
