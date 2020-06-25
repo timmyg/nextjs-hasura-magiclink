@@ -8,7 +8,9 @@ import AddActivity from '../components/addActivity'
 import ViewActivities from '../components/viewActivities'
 import Link from 'next/link'
 import useMagicLink from 'use-magic-link'
-// import moment from 'moment'
+import gql from 'graphql-tag'
+import { useSubscription } from '@apollo/react-hooks';
+import moment from 'moment'
 setClassNamePrefix("ub-");
 
 const Index = () => {
@@ -16,7 +18,7 @@ const Index = () => {
   const dispatch = useDispatch()
     useEffect(() => {
       dispatch(getActivities());
-      dispatch(listenForActivities());
+      // dispatch(listenForActivities())
   }, [dispatch])
 
   const activities = useSelector(({activityForm}) => {
@@ -48,6 +50,40 @@ const Index = () => {
   }
 
   const auth = useMagicLink(process.env.NEXT_PUBLIC__MAGIC_LINK_PUBLISHABLE_KEY);
+
+  const newActivitiesSubscription = gql`
+      subscription newActivities($now: timestamp!) {
+        activities (where: {updated_at: {_gt: $now}}) {
+          id
+          type
+          start_at
+          end_at
+          baby_id
+          text
+        }
+      }
+    `;
+
+  const now = moment().utc().format()
+  useSubscription(
+    newActivitiesSubscription,
+    { 
+      variables: { now },
+      onSubscriptionData: ({
+          subscriptionData
+      }) => {
+          console.log('activitiesSubscription', subscriptionData)
+          // dispatch(appendTask({
+          //     name: subscriptionData.data.taskAdded.name
+          // }));
+          if  (subscriptionData?.data?.activities) {
+            subscriptionData.data.activities.map(activity => {
+              dispatch(addActivitySuccess(activity))
+            })
+          }
+      }
+    }
+  );
 
   return (
     <>

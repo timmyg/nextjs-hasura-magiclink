@@ -1,8 +1,6 @@
 import * as types from './types'
-import moment from 'moment'
 // import useMagicLink from 'use-magic-link'
-import gql from 'graphql-tag'
-import { useSubscription } from '@apollo/react-hooks';
+
 
 const headers = {
   'Content-type': 'application/json',
@@ -108,39 +106,44 @@ export const getActivities  = () => {
   }
 }
 
-export const listenForActivities = () => {
-  return dispatch => {
-    console.log('started');
-    dispatch(listenForActivitiesStarted());
-    const now = moment().utc().format()
-    const newActivitiesSubscription = gql`
-      subscription newActivities($now: timestamp!) {
-        activities (where: {updated_at: {_gt: $now}}) {
-          id
-          type
-          start_at
-          end_at
-          baby_id
-          text
-        }
-      }
-    `;
+// export const listenForActivities = () => {
+//   return dispatch => {
+//     console.log('started');
+//     dispatch(listenForActivitiesStarted());
+//     const now = moment().utc().format()
+//     const newActivitiesSubscription = gql`
+//       subscription newActivities($now: timestamp!) {
+//         activities (where: {updated_at: {_gt: $now}}) {
+//           id
+//           type
+//           start_at
+//           end_at
+//           baby_id
+//           text
+//         }
+//       }
+//     `;
 
-    console.log("now", now);
-    const { data, loading } = useSubscription(
-      newActivitiesSubscription,
-      { variables: 
-        {
-          now
-        }
-      }
-    );
-    if (data && data.activities) {
-      dispatch(addActivitySuccess(data.activities[0]))
-    }
-    dispatch(listenForActivitiesSuccess())
-  }
-};
+//     console.log("now", now);
+//     const { data, loading, error } = useSubscription(
+//       newActivitiesSubscription,
+//       { 
+//         variables: { now }
+//       }
+//     );
+//     if (loading || error) {
+//       return null
+//     }
+//     if (data && data.activities) {
+//       data.activities.map(activity => {
+//         dispatch(addActivitySuccess(activity))
+//       })
+//     }
+
+//     dispatch(listenForActivitiesSuccess())
+//     // return null
+//   }
+// };
 
 const addActivityStarted = () => ({
   type: types.ADD_ACTIVITY_STARTED
