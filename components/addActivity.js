@@ -34,6 +34,7 @@ const AddForm = ({onActivitySubmit, loading}) => {
         <ul>
           <li><Text>poop</Text></li>
           <li><Text>nap</Text></li>
+          <li><Text>feed</Text></li>
           <li><Text>poop at 923am</Text></li>
           <li><Text>feed at 110pm</Text></li>
         </ul>

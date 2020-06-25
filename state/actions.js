@@ -1,6 +1,8 @@
 import * as types from './types'
 import moment from 'moment'
-import useMagicLink from 'use-magic-link'
+// import useMagicLink from 'use-magic-link'
+import gql from 'graphql-tag'
+import { useSubscription } from '@apollo/react-hooks';
 
 const headers = {
   'Content-type': 'application/json',
@@ -52,7 +54,7 @@ export const addActivity  = (activityFullText, babyId) => {
     .then((res) => res.json())
     .then((json) => {
       if (json.data) {
-        dispatch(addActivitySuccess(json.data.insert_activities_one));
+        // dispatch(addActivitySuccess(json.data.insert_activities_one));
       } else {
         dispatch(addActivityFailure(json.errors));
       }
@@ -106,14 +108,45 @@ export const getActivities  = () => {
   }
 }
 
-export const setActivities  = (activities) => {
-}
- 
+export const listenForActivities = () => {
+  return dispatch => {
+    console.log('started');
+    dispatch(listenForActivitiesStarted());
+    const now = moment().utc().format()
+    const newActivitiesSubscription = gql`
+      subscription newActivities($now: timestamp!) {
+        activities (where: {updated_at: {_gt: $now}}) {
+          id
+          type
+          start_at
+          end_at
+          baby_id
+          text
+        }
+      }
+    `;
+
+    console.log("now", now);
+    const { data, loading } = useSubscription(
+      newActivitiesSubscription,
+      { variables: 
+        {
+          now
+        }
+      }
+    );
+    if (data && data.activities) {
+      dispatch(addActivitySuccess(data.activities[0]))
+    }
+    dispatch(listenForActivitiesSuccess())
+  }
+};
+
 const addActivityStarted = () => ({
   type: types.ADD_ACTIVITY_STARTED
 });
 
-const addActivitySuccess = activity => ({
+export const addActivitySuccess = activity => ({
   type: types.ADD_ACTIVITY_SUCCESS,
   payload: {
     ...activity
@@ -164,4 +197,12 @@ const getActivitiesFailure = error => ({
 export const setActivitiesFilter = text => ({
   type: types.SET_ACTIVITIES_FILTER,
   payload: text
+});
+
+const listenForActivitiesStarted = () => ({
+  type: types.LISTEN_ACTIVITIES_STARTED
+});
+
+const listenForActivitiesSuccess = () => ({
+  type: types.LISTEN_ACTIVITIES_SUCCESS
 });

@@ -1,4 +1,4 @@
-import { IconButton, Text, majorScale, Pane, Spinner, TextInput } from 'evergreen-ui'
+import { IconButton, Text, majorScale, Pane, Spinner, SearchInput } from 'evergreen-ui'
 import Moment from 'react-moment';
 import 'moment-timezone';
 
@@ -36,7 +36,7 @@ const ViewActivities = ({onHandleSearch, onHandleDelete, activities, loading}) =
 
   return (
     <>
-      <TextInput
+      <SearchInput
           onChange={ onHandleSearch }
           placeholder='Search activity...'
           marginBottom={majorScale(2)}
@@ -46,42 +46,31 @@ const ViewActivities = ({onHandleSearch, onHandleDelete, activities, loading}) =
           <div>
               {
                 activities.map((activity, index) => (
-                  <>
-                    <div style={{
-                        'display': 'flex',
-                        'flex-direction': 'row',
-                        'flex-wrap': 'wrap',
-                        'width': '100%',
-                        'align-items': 'center',
-                        'border-left': '3px solid #eeeeee',
-                        'padding-left': majorScale(1),
-                        'padding-top': majorScale(1),
-                        'padding-bottom': majorScale(1)
-                    }}>
-                      <span style={{'position': 'absolute', 'left': '16px'}}>
-                        {renderActivityTypeIcon(activity.type)}
-                      </span>
-                      <span style={{'width': '60%', 'text-align': 'center'}}>
-                        <Text size={700}>
-                          <Moment format="M/D h:mma" utc local>
-                            {activity.start_at}
-                          </Moment>
-                        </Text>
-                      </span>
-                      {/* <span style={{'width': '30%'}}>
-                        <Text size={700} marginLeft={majorScale(1)}>{activity.type}</Text>
-                      </span> */}
-                      <span style={{'width': '40%', 'text-align': 'right'}}>
-                        {/* <IconButton appearance="minimal" icon="more" style={{display: 'inline'}} onClick={() => { onHandleMore(index) } }/>
-                        {activitiesToggled.includes(index) ?
-                          (
-                            <IconButton appearance="minimal" icon="trash" intent="danger" style={{display: 'inline'}} onClick={() => { onHandleDelete(activity) } }/>
-                          ) : (<></>)
-                        } */}
-                        <IconButton appearance="minimal" icon="trash" intent="danger" style={{display: 'inline'}} onClick={() => { onHandleDelete(activity) } }/>
-                      </span>
-                    </div>
-                  </>
+                  <div key={index} style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                      width: '100%',
+                      alignItems: 'center',
+                      borderLeft: '3px solid #eeeeee',
+                      paddingLeft: majorScale(1),
+                      paddingTop: majorScale(1),
+                      paddingBottom: majorScale(1)
+                  }}>
+                    <span style={{'position': 'absolute', 'left': '16px'}}>
+                      {renderActivityTypeIcon(activity.type)}
+                    </span>
+                    <span style={{'width': '60%', 'textAlign': 'center'}}>
+                      <Text size={600}>
+                        <Moment format="M/D h:mma" utc local>
+                          {activity.start_at}
+                        </Moment>
+                      </Text>
+                    </span>
+                    <span style={{'width': '40%', 'textAlign': 'right'}}>
+                      <IconButton appearance="minimal" icon="trash" intent="danger" style={{display: 'inline'}} onClick={() => { onHandleDelete(activity) } }/>
+                    </span>
+                  </div>
                 ))
               }
           </div>

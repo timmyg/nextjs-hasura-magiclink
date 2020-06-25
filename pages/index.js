@@ -2,21 +2,21 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Header from '../components/header'
 import { Pane, Tab, Tablist, setClassNamePrefix, majorScale, Button } from "evergreen-ui"
-import { addActivity, getActivitiesSuccess, setTab, setActivitiesFilter, deleteActivity } from '../state/actions'
+import { addActivity, addActivitySuccess, setTab, setActivitiesFilter, deleteActivity, getActivities, listenForActivities } from '../state/actions'
 import Head from 'next/head'
 import AddActivity from '../components/addActivity'
 import ViewActivities from '../components/viewActivities'
 import Link from 'next/link'
 import useMagicLink from 'use-magic-link'
-import gql from 'graphql-tag'
-import { useSubscription } from '@apollo/react-hooks';
+// import moment from 'moment'
 setClassNamePrefix("ub-");
 
 const Index = () => {
   
   const dispatch = useDispatch()
     useEffect(() => {
-      // dispatch(getActivities())
+      dispatch(getActivities());
+      dispatch(listenForActivities());
   }, [dispatch])
 
   const activities = useSelector(({activityForm}) => {
@@ -40,7 +40,6 @@ const Index = () => {
   }
 
   const onHandleSearch = (e) => {
-    console.log(e.target.value);
     dispatch(setActivitiesFilter(e.target.value))
   }
 
@@ -49,32 +48,6 @@ const Index = () => {
   }
 
   const auth = useMagicLink(process.env.NEXT_PUBLIC__MAGIC_LINK_PUBLISHABLE_KEY);
-
-  // todo move to actions?
-  function subscribe() { 
-    const newActivitiesSubscription = gql`
-      subscription newActivities {
-        activities {
-          id
-          type
-          start_at
-          end_at
-          baby_id
-          text
-        }
-      }
-    `;
-  
-    const { data, loading } = useSubscription(
-      newActivitiesSubscription,
-    );
-    console.log({data, loading});
-    if (data) {
-      dispatch(getActivitiesSuccess(data.activities))
-    }
-  };
-
-  subscribe()
 
   return (
     <>
@@ -113,14 +86,14 @@ const Index = () => {
                   {"View"}
             </Tab>
             <Tab
-              key={"Trends"}
-              id={"Trends"}
+              key={"Stats"}
+              id={"Stats"}
               onSelect={() => dispatch(setTab(2)) }
               isSelected={2 === selectedIndex}
-              aria-controls={`panel-${"Trends"}`}
+              aria-controls={`panel-${"Stats"}`}
               disabled={true} 
             >
-                  {"Trends"}
+                  {"Stats"}
             </Tab>
           </Tablist>
           <Pane padding={16} flex="1">
@@ -145,10 +118,10 @@ const Index = () => {
                 <ViewActivities loading={loading} activities={activities} onHandleSearch={onHandleSearch} onHandleDelete={onHandleDelete}/>
             </Pane>
             <Pane
-              key={"Trends"}
-              id={`panel-${"Trends"}`}
+              key={"Stats"}
+              id={`panel-${"Stats"}`}
               role="tabpanel"
-              aria-labelledby={"Trends"}
+              aria-labelledby={"Stats"}
               aria-hidden={2 !== selectedIndex}
               display={2 === selectedIndex ? 'block' : 'none'}
               >

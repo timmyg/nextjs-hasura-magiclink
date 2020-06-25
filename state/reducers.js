@@ -33,28 +33,29 @@ const formReducer = (state = initialFormState, { type, payload }) => {
     case types.ADD_ACTIVITY_STARTED:
     case types.DELETE_ACTIVITY_STARTED:
     case types.GET_ACTIVITIES_STARTED:
+    case types.LISTEN_ACTIVITIES_STARTED:
       return {
         ...state,
         loading: true
       }
 
-    // case types.ADD_ACTIVITY_SUCCESS: 
-    //   const allActivities = [...state.allActivities.slice(), payload]
-    //   const allActivitiesSorted = allActivities.sort((a, b) => {
-    //     return b.start_at.localeCompare(a.start_at)
-    //   })
-    //   const activities = state.activityFilter ? state.allActivities.filter(activity =>
-    //     activity.type.toLowerCase().includes(state.activityFilter.toLowerCase())) : allActivities
-    //   toaster.success(
-    //       'Activity added'
-    //     )
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     error: null,
-    //     allActivities: allActivitiesSorted,
-    //     activities
-    //   }
+    case types.ADD_ACTIVITY_SUCCESS: 
+      const allActivities = [...state.allActivities.slice(), payload]
+      const allActivitiesSorted = allActivities.sort((a, b) => {
+        return (b.start_at || "").localeCompare(a.start_at || "")
+      })
+      const activities = state.activityFilter ? state.allActivities.filter(activity =>
+        activity.type.toLowerCase().includes(state.activityFilter.toLowerCase())) : allActivities
+      toaster.success(
+          'Activity added'
+        )
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        allActivities: allActivitiesSorted,
+        activities
+      }
     case types.DELETE_ACTIVITY_SUCCESS: 
       toaster.success(
         'Activity deleted'
@@ -83,10 +84,13 @@ const formReducer = (state = initialFormState, { type, payload }) => {
         activities: !!payload ? state.allActivities.filter(activity =>
           activity.type.toLowerCase().includes(payload.toLowerCase())) : state.allActivities
       }
+    case types.LISTEN_ACTIVITIES_SUCCESS:
+      return state;
 
     case types.ADD_ACTIVITY_FAILURE:
     case types.DELETE_ACTIVITY_FAILURE:
     case types.GET_ACTIVITIES_FAILURE:
+    case types.LISTEN_ACTIVITIES_FAILURE:
       toaster.danger(
         payload.error
       )
