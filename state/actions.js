@@ -31,7 +31,8 @@ export const addActivity  = (activityFullText, babyId) => {
     const activity = {
       type: activityText,
       text: activityFullText,
-      baby_id: babyId
+      baby_id: babyId,
+      source: "web"
     }
     if(words.includes("at")) {
       const timeText = words[2]
@@ -42,7 +43,7 @@ export const addActivity  = (activityFullText, babyId) => {
       headers,
       body: JSON.stringify(
         {
-          "query":"mutation insert_single_activity($object: activities_insert_input! ) {insert_activities_one(object: $object) { id type baby_id created_at updated_at start_at }}",
+          "query":"mutation insert_single_activity($object: activities_insert_input! ) {insert_activities_one(object: $object) { id type source baby_id created_at updated_at start_at }}",
           "variables": {
             "object": activity
           },
@@ -91,7 +92,7 @@ export const getActivities  = () => {
       headers,
       body: JSON.stringify(
         {
-          "query": "query { activities(order_by: {start_at: desc}) { id type start_at } }",
+          "query": "query { activities(order_by: {start_at: desc}) { id type start_at source } }",
         },
       ),
     })

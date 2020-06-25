@@ -25,7 +25,8 @@ export default async (req, res) => {
               "object": {
                 text: activityFullText,
                 type: activityText,
-                baby_id: babyId
+                baby_id: babyId,
+                source: "sms",
               }
             },
             "operationName":"insert_single_activity"}
